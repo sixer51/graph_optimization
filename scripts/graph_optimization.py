@@ -57,7 +57,7 @@ class GraphOptimization(g2o.SparseOptimizer):
     # get the pose of the vertex
     def get_pose(self, id):
         return self.vertex(id).estimate()
-        
+
 
 # create rosnode and use graph optimizer to optimize estimated pose
 class StateEstimate:
@@ -158,9 +158,6 @@ class StateEstimate:
             y_after_op.append(trans[1])
             theta_after_op.append(self.graph_optimizer.get_pose(i).rotation().angle())
 
-        print(self.x, self.y, self.theta, self.t)
-        print(theta_after_op)
-
         plt.figure()
         self.plot("x", self.x, x_after_op)
         plt.figure()
@@ -170,7 +167,7 @@ class StateEstimate:
 
         plt.show()
 
-
+    # plot
     def plot(self, value, original, afterop):
         plt.plot(self.t, original, label = 'original')
         plt.plot(self.t, afterop, '*', label = 'after optimization')
@@ -183,6 +180,8 @@ class StateEstimate:
             plt.plot(self.t, [0]*len(self.t), 'r', linestyle='solid', label = 'ground truth')
             plt.text(3, 0.2, "pose error: "+str(round(original[-1], 4)))
             plt.text(3, 0.1, "after optimization pose error: "+str(round(afterop[-1], 4)))
+        
+        # title and label
         plt.title(value)
         plt.xlabel('time(s)')
         if value == "theta": plt.ylabel('angle(rad)')
