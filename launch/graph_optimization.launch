@@ -1,0 +1,9 @@
+<launch>
+  <node pkg='graph_optimization' name='graph_optimization' type='graph_optimization.py' output='screen'>
+    <param name='output_path' value='$(find graph_optimization)/g2o_graph/slam2d.g2o' />
+    <param name='output_path_after_optimization' value='$(find graph_optimization)/g2o_graph/slam2d_after_optimization.g2o' />
+  </node>
+
+  <node pkg='rosbag' name='rosbag' type='play' args="$(find graph_optimization)/bags/bag_2020-02-01-05-50-34.bag" />
+
+</launch>
